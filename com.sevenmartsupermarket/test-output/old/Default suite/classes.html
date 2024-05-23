@@ -4,35 +4,26 @@
 <th>Method name</th>
 <th>Groups</th>
 </tr><tr>
-<td>com.sevenmartsupermarket.base.PushNotificationTest</td>
+<td>com.sevenmartsupermarket.base.LoginTest</td>
 <td>&nbsp;</td><td>&nbsp;</td></tr>
 <tr>
 <td align='center' colspan='3'>@Test</td>
 </tr>
 <tr>
 <td>&nbsp;</td>
-<td>enterProductDetails</td>
-<td>&nbsp;</td></tr>
+<td>verifyValidUserLogin</td>
+<td>smoke </td>
+</tr>
 <tr>
 <td>&nbsp;</td>
-<td>usernameExistAlert</td>
-<td>&nbsp;</td></tr>
+<td>verify_Login</td>
+<td>sanity </td>
+</tr>
 <tr>
 <td>&nbsp;</td>
-<td>addUserAdminInformations</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td>&nbsp;</td>
-<td>checkProfileName</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td>&nbsp;</td>
-<td>verifySendNotification</td>
-<td>&nbsp;</td></tr>
-<tr>
-<td>&nbsp;</td>
-<td>checkingExcel</td>
-<td>&nbsp;</td></tr>
+<td>verifyInvalidUserLogin</td>
+<td>smoke sanity </td>
+</tr>
 <tr>
 <td align='center' colspan='3'>@BeforeClass</td>
 </tr>
@@ -44,8 +35,16 @@
 <td>launchBrowser</td>
 <td>&nbsp;</td></tr>
 <tr>
+<td>&nbsp;</td>
+<td>launchBrowser</td>
+<td>&nbsp;</td></tr>
+<tr>
 <td align='center' colspan='3'>@AfterMethod</td>
 </tr>
+<tr>
+<td>&nbsp;</td>
+<td>terminateBrowser</td>
+<td>&nbsp;</td></tr>
 <tr>
 <td align='center' colspan='3'>@AfterClass</td>
 </tr>

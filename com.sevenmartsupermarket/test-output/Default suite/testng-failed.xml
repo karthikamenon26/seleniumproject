@@ -3,12 +3,14 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="com.sevenmartsupermarket.base.PushNotificationTest">
+      <class name="com.sevenmartsupermarket.base.LoginTest">
         <methods>
           <include name="launchBrowser"/>
-          <include name="enterProductDetails"/>
+          <include name="launchBrowser"/>
+          <include name="verifyValidUserLogin"/>
+          <include name="terminateBrowser"/>
         </methods>
-      </class> <!-- com.sevenmartsupermarket.base.PushNotificationTest -->
+      </class> <!-- com.sevenmartsupermarket.base.LoginTest -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

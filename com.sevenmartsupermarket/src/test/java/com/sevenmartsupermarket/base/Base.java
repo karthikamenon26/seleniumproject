@@ -7,17 +7,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Parameters;
+
 import java.time.Duration;
 
 import com.sevenmartsupermarket.constants.Constants;
+import com.sevenmartsupermarket.utilities.ScreenshotCapture;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class Base {
 	
+	
 	public WebDriver driver;
 	Properties properties = new Properties(); //used to call properties from notepad
+	ScreenshotCapture screenshotcapture=new ScreenshotCapture();
 	
 	/** Base Constructor **/
 	public Base() {
@@ -48,11 +55,31 @@ public class Base {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Constants.IMPLICIT_WAIT));
 
 	}
-	@BeforeMethod
-	public void launchBrowser() {
+	
+	@BeforeMethod(enabled=true)
+	public void launchBrowser() 
+	{
 		String browser=properties.getProperty("browser");
 		String url=properties.getProperty("url");
 		initialize(browser,url);
+	}
+	
+	@Parameters("browser")
+	@BeforeMethod(enabled=false)
+	public void launchBrowser(String browser) 
+	{
+		String url=properties.getProperty("url");
+		initialize(browser,url);
+	}
+	
+	@AfterMethod
+	public void terminateBrowser(ITestResult itestresult) //for listener to check whether testcase is pass or fail
+	{
+		if(itestresult.getStatus()==ITestResult.FAILURE) //it takes screenshot for a fail testcase
+		{
+			screenshotcapture.takesscreenshot(driver, itestresult.getName()); //getname takes name of particular testcase name
+		}
+		
 	}
 
 }

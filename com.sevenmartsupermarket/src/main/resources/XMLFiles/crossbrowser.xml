@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="SmokeTestNew" thread-count="3" parallel="tests"> //count for opening the test
+	
+	<test name="RuninChrome">
+	<parameter name="browser" value="chrome"> </parameter>
+		<classes>
+			<class name="com.sevenmartsupermarket.base.LoginTest">
+			</class>
+		</classes>
+	</test>
+	
+	<test name="RuninFirefox">
+	<parameter name="browser" value="firefox"> </parameter>
+		<classes>
+			<class name="com.sevenmartsupermarket.base.LoginTest">
+			</class>
+		</classes>
+	</test>
+	
+	<test name="RuninEdge">
+	<parameter name="browser" value="edge"> </parameter>
+		<classes>
+			<class name="com.sevenmartsupermarket.base.LoginTest">
+			</class>
+		</classes>
+	</test>
+</suite>

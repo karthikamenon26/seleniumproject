@@ -3,6 +3,7 @@ package com.sevenmartsupermarket.base;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.sevenmartsupermarket.pages.AdminPage;
 import com.sevenmartsupermarket.pages.HomePage;
 import com.sevenmartsupermarket.pages.LoginPage;
 import com.sevenmartsupermarket.pages.PushNotificationPage;
@@ -15,6 +16,17 @@ public class PushNotificationTest extends Base{
 	LoginPage loginPage;
 	HomePage homepage;
 	ExcelReader excelreader = new ExcelReader();
+	GeneralUtility generalutility;
+	
+	@Test
+	public void checkProfileName() 
+	{
+		loginPage=new LoginPage(driver);
+		loginPage.login();
+		homepage=new HomePage(driver);
+		System.out.println(homepage.getProfilename());
+		
+	}
 	
 	@Test
 	public void verifySendNotification() {
@@ -36,38 +48,15 @@ public class PushNotificationTest extends Base{
 	@Test
 	public void checkingExcel() 
 	{
+		loginPage=new LoginPage(driver);
+		loginPage.login();
+		homepage=new HomePage(driver);
+		homepage.clickOnPushNotification();
+		pushnotificationpage=new PushNotificationPage(driver);
 		excelreader.setExcelFile("PushNotificationData", "Notifications"); //using workbook(excel)
 		String title = excelreader.getCellData(1, 0);
+		title = title + GeneralUtility.getRandomFullName(); //avoid duplication
 		String description = excelreader.getCellData(1, 1);
-	}
-	
-	@Test
-	public void checkProfileName() //me
-	{
-		loginPage=new LoginPage(driver);
-		loginPage.login();
-		homepage=new HomePage(driver);
-		System.out.println(homepage.getProfilename());
-		
-	}
-	
-	@Test
-	public void addUserAdminInformations() //me
-	{
-		loginPage=new LoginPage(driver);
-		loginPage.login();
-		homepage=new HomePage(driver);
-		homepage.saveAdminUserInformation();
-	}
-	
-	@Test
-	public void usernameExistAlert()
-	{
-		loginPage=new LoginPage(driver);
-		loginPage.login();
-		homepage=new HomePage(driver);
-		homepage.saveAdminUserInformation();
-		homepage.getUsernameAlreadyExistAlert();
 	}
 	
 	@Test
@@ -77,5 +66,22 @@ public class PushNotificationTest extends Base{
 		loginPage.login();
 		homepage=new HomePage(driver);
 		homepage.saveProductInformation();
+	}
+	
+//	@Test
+//	public void duplicationDetails()
+//	{
+//		loginPage=new LoginPage(driver);
+//		loginPage.login();
+//		homepage=new HomePage(driver);
+//		homepage.listAllUsers();
+//	}
+	
+	public void verifyDeactivationFunctionality()
+	{
+		loginPage=new LoginPage(driver);
+		loginPage.login();
+		homepage=new HomePage(driver);
+		homepage.deactivateUser(null);
 	}
 }

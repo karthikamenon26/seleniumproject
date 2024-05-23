@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="SmokeTestNew" thread-count="3" parallel="tests"> //count for opening the test
+	<listeners>
+		<listener class-name="com.sevenmartsupermarket.listeners.ExtentReporter"></listener>
+	</listeners>
+	<test name="SuiteTest1">
+		<classes>
+			<class name="com.sevenmartsupermarket.pages.LoginPage">
+			</class>
+		</classes>
+	</test>
+	
+	<test name="SuiteTest2">
+		<classes>
+			<class name="com.sevenmartsupermarket.base.LoginTest">
+			</class>
+		</classes>
+	</test>
+	
+	<test name="SuiteTest3">
+		<classes>
+			<class name="com.sevenmartsupermarket.utilities.PageUtility">
+			</class>
+		</classes>
+	</test>
+</suite>

@@ -3,12 +3,14 @@ package com.sevenmartsupermarket.pages;
 import java.io.FileInputStream;
 import java.util.Properties;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import com.sevenmartsupermarket.constants.Constants;
+import com.sevenmartsupermarket.utilities.WaitUtility;
 
 public class LoginPage {
 
@@ -27,6 +29,9 @@ public class LoginPage {
 	WebElement loginHeaderlogo;
 	@FindBy(xpath = "//label[@for='remember']")
 	WebElement rememberme;
+	By homePageWaitElement=By.xpath("//a[@class='d-block']");
+	//WebElement rememberme;
+	//a[@class='d-block']
 	
 	public LoginPage(WebDriver driver)
 	{
@@ -53,11 +58,13 @@ public class LoginPage {
 	}
 	
 	public void login() {
+		//WaitUtility waitutility = new WaitUtility();
 		String username = properties.getProperty("userName");
 		String password = properties.getProperty("password");
 		enterUserName(username);
 		enterPassword(password);
 		clickonSigninButton();
+		//waitutility.
 	}
 		
 	public void login(String userName, String password) {

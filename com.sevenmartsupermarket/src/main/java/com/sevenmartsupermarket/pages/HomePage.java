@@ -1,12 +1,17 @@
 package com.sevenmartsupermarket.pages;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+
+import com.sevenmartsupermarket.utilities.GeneralUtility;
+import com.sevenmartsupermarket.utilities.PageUtility;
 
 public class HomePage {
 
@@ -14,26 +19,10 @@ WebDriver driver;
 
 @FindBy(xpath = "//ul//li[6]")
 private WebElement pushnotificationelement;
-@FindBy(xpath = "//div[@class='col-lg-3 col-6']")
-private List <WebElement> dashboardelements;
 @FindBy(xpath = "//a[@class='d-block']")
 private WebElement profileName;
-@FindBy(xpath = "(//a[@class='small-box-footer'])[2]")
-private WebElement adminUsers;
-@FindBy(xpath = "//a[@onclick='click_button(1)']")
-private WebElement newOptionAdminUsers;
-@FindBy(xpath = "//input[@id='username']")
-private WebElement adminUsersUsername;
-@FindBy(xpath = "//input[@id='password']")
-private WebElement adminUsersPassword;
-@FindBy(xpath = "//select[@id='user_type']")
-private WebElement allDropDown;
-@FindBy(xpath = "(//option[@value='admin'])[2]")
-private WebElement selectAdminDropDown;
-@FindBy(xpath = "(//button[@class='btn btn-block-sm btn-danger'])[2]")
-private WebElement adminSave;
-@FindBy(xpath = "//div[@class='alert alert-danger alert-dismissible']")
-private WebElement alertMessage;
+@FindBy(xpath = "//div[@class='col-lg-3 col-6']")
+private List <WebElement> dashboardelements;
 @FindBy(xpath = "(//a[@class='small-box-footer'])[5]")
 private WebElement manageProduct;
 @FindBy(xpath = "//a[@class='btn btn-rounded btn-danger']")
@@ -78,36 +67,30 @@ private WebElement stockManageProduct;
 private WebElement featuredManageProduct;
 @FindBy(xpath = "(//input[@value='no'])[3]")
 private WebElement comboPackManageProduct;
+@FindBy(xpath = "//button[@name='create']")
+private WebElement saveManageProduct;
+@FindBy(xpath = "//tbody//tr//td[1]")
+List<WebElement> userNameColumnElements;
+@FindBy(xpath = "(//a[@class='small-box-footer'])[2]")
+private WebElement adminUsers;
+@FindBy(xpath = "//div[@class='col-lg-3 col-6']")
+private List <WebElement> dashboardElements;
+
+PageUtility pageutility;
+GeneralUtility generalutility;
 
 	public HomePage(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
 	
-	public String getProfilename() {
+	public String getProfilename() 
+	{
 		return profileName.getText();	
 		}
 	
 	public void clickOnPushNotification() {
 		pushnotificationelement.click();
-	}
-	
-	public void saveAdminUserInformation()
-	{
-		adminUsers.click();
-		newOptionAdminUsers.click();
-		adminUsersUsername.sendKeys("admin");
-		adminUsersPassword.sendKeys("admin");
-		Select select=new Select(allDropDown);
-		allDropDown.click();
-		selectAdminDropDown.click();
-		adminSave.click();
-	}
-	
-	public boolean getUsernameAlreadyExistAlert()
-	{
-		boolean usernameExist = alertMessage.isDisplayed(); 
-		return usernameExist;	
 	}
 	
 	public void saveProductInformation()
@@ -118,7 +101,7 @@ private WebElement comboPackManageProduct;
 		titleManageProduct.sendKeys("Apple");
 		tagManageProduct.click();
 		tagManageProduct.sendKeys("a");
-		Select select=new Select(categoryManageProduct);
+		Select select=new Select(categoryManageProduct); //use utility
 		categoryManageProduct.click();
 		selectCategory.click();
 		Select select1=new Select(subCategoryTypeManageProduct);
@@ -138,12 +121,56 @@ private WebElement comboPackManageProduct;
 		PriceManageProduct.click();
 		PriceManageProduct.sendKeys("250");
 		//unlimitedStockManageProduct.click();
-		stockAvailableManageProduct.click();
+		pageutility.scrollAndClick(stockAvailableManageProduct);
 		stockAvailableManageProduct.sendKeys("50");
 		stockManageProduct.click();
 		featuredManageProduct.click();
 		comboPackManageProduct.click();
+		saveManageProduct.click();
 	}
 	
+//	public void listAllUsers()
+//	{
+//		adminUsers.click();
+//		for(WebElement username: userNameColumnElements)
+//		{
+//			System.out.println(username.getText());
+//		}
+//	}
 	
+	public void deactivateUser(String name) {
+
+		pageutility=new PageUtility(driver);
+
+		List<String> nameList=new ArrayList<String>();
+
+		nameList=generalutility.getTextofElements(userNameColumnElements);
+
+		int index=0;
+
+		for(index=0;index<nameList.size();index++)
+
+		{
+
+			if(nameList.get(index).equals(name)) {
+
+				index++;
+
+				break;
+
+			}
+
+		}
+
+		WebElement deactivateButton=driver.findElement(By.xpath("//table//tr["+index+"]//td[5]//a[1]"));	
+
+		pageutility.scrollAndClick(deactivateButton);
+
+	}
+	
+	public int graphicElementsSize() {
+		int b=dashboardElements.size();
+		return b;
+	
+	}
 }

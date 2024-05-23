@@ -10,14 +10,14 @@ public class LoginTest extends Base{
 
 	LoginPage loginPage;
 	HomePage homepage;
-	@Test
+	@Test(groups="sanity")
 	public void verify_Login()
 	{
 		loginPage=new LoginPage(driver);
 		loginPage.login();
 	}
 	
-	@Test
+	@Test(groups="smoke", retryAnalyzer = com.sevenmartsupermarket.listeners.RetryAnalyzer.class)
 	public void verifyValidUserLogin() {
 		
 		loginPage = new LoginPage(driver);		
@@ -29,7 +29,7 @@ public class LoginTest extends Base{
 		
 	}
 	
-	@Test
+	@Test(groups={"sanity","smoke"})
 	public void verifyInvalidUserLogin() {
 		loginPage=new LoginPage(driver);
 			loginPage.login("hhh","kkkk");
